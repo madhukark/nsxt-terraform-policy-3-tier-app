@@ -443,11 +443,12 @@ resource "nsxt_policy_security_policy" "firewall_section" {
 
   # Allow VMs to communicate with outside
   rule {
-    display_name  = "Allow out"
-    description   = "Outgoing rule"
+    display_name  = "ICMP"
+    description   = "Ping"
     action        = "ALLOW"
     logged        = "true"
     ip_version    = "IPV4"
+    disabled      = "false"
     source_groups = [nsxt_policy_group.all_vms.path]
   }
 
