@@ -521,26 +521,32 @@ resource "nsxt_policy_nat_rule" "rule4" {
 
 data "nsxt_policy_segment_realization" "web_info" {
   path = nsxt_policy_segment.web.path
+  depends_on = [nsxt_policy_segment.web]
 }
 
 data "nsxt_policy_segment_realization" "app_info" {
   path = nsxt_policy_segment.app.path
+  depends_on = [nsxt_policy_segment.app]
 }
 
 data "nsxt_policy_segment_realization" "db_info" {
   path = nsxt_policy_segment.db.path
+  depends_on = [nsxt_policy_segment.db]
 }
 
 data "nsxt_policy_realization_info" "a_info" {
   path = nsxt_policy_segment.app.path
+  depends_on = [nsxt_policy_segment.app]
 }
 
 data "nsxt_policy_realization_info" "d_info" {
   path = nsxt_policy_segment.db.path
+  depends_on = [nsxt_policy_segment.db]
 }
 
 data "nsxt_policy_realization_info" "w_info" {
   path = nsxt_policy_segment.web.path
+  depends_on = [nsxt_policy_segment.web]
 }
 
 
@@ -678,7 +684,7 @@ data "nsxt_policy_vm" "db_vm" {
   depends_on    = [vsphere_virtual_machine.db-vm]
 }
 
-# Assigne the right tags to the VMs so that they get included in the
+# Assign the right tags to the VMs so that they get included in the
 # dynamic groups created above
 resource "nsxt_policy_vm_tags" "web_vm_tag" {
   instance_id = data.nsxt_policy_vm.web_vm.instance_id
